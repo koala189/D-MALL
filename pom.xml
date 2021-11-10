@@ -5,8 +5,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.6</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>2.3.1.RELEASE</version>
+    <!-- lookup parent from repository -->
     </parent>
     <groupId>com.dzd</groupId>
     <artifactId>dmall</artifactId>
@@ -15,7 +15,6 @@
     <description>聚合</description>
     <properties>
         <java.version>1.8</java.version>
-        <spring-cloud.version>2020.0.4</spring-cloud.version>
     </properties>
     <packaging>pom</packaging>
     <modules>
@@ -25,7 +24,8 @@
         <module>product</module>
         <module>ware</module>
         <module>renren-fast</module>
-        <module>renren-generator</module>
         <module>common</module>
+        <module>gateway</module>
+        <module>third-party</module>
     </modules>
 </project>
