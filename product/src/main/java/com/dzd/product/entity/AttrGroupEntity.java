@@ -1,5 +1,6 @@
 package com.dzd.product.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -9,7 +10,7 @@ import lombok.Data;
 
 /**
  * 属性分组
- * 
+ *
  * @author Deng ZhengDong
  * @email 22028165@zju.edu.cn
  * @date 2021-11-02 21:37:42
@@ -45,4 +46,7 @@ public class AttrGroupEntity implements Serializable {
 	 */
 	private Long catelogId;
 
+
+	@TableField(exist = false)
+	private Long[] catelogPath;
 }

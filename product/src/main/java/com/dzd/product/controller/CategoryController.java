@@ -3,8 +3,13 @@ package com.dzd.product.controller;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.dzd.product.entity.BrandEntity;
+import com.dzd.product.service.CategoryBrandRelationService;
+import com.dzd.product.vo.BrandVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +21,9 @@ import com.dzd.product.entity.CategoryEntity;
 import com.dzd.product.service.CategoryService;
 import com.dzd.common.utils.PageUtils;
 import com.dzd.common.utils.R;
+import sun.awt.image.VolatileSurfaceManager;
 
+import javax.annotation.Resource;
 
 
 /**
@@ -31,6 +38,8 @@ import com.dzd.common.utils.R;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+
+
 
     /**
      * 列表
@@ -67,12 +76,12 @@ public class CategoryController {
     }
 
     /**
-     * 修改
+     * 修改 级联更新
      */
     @RequestMapping("/update")
     //@RequiresPermissions("product:category:update")
     public R update(@RequestBody CategoryEntity category){
-		categoryService.updateById(category);
+		categoryService.updateCascade(category);
 
         return R.ok();
     }

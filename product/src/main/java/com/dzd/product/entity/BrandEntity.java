@@ -16,7 +16,7 @@ import javax.validation.constraints.*;
 
 /**
  * 品牌
- * 
+ *
  * @author Deng ZhengDong
  * @email 22028165@zju.edu.cn
  * @date 2021-11-02 21:37:42
@@ -31,7 +31,7 @@ public class BrandEntity implements Serializable {
 	 */
 	@TableId
 	@Null(message = "修改时指定id必须为null",groups = {UpdateGroup.class})
-	@NotNull(message = "新增时id必须部位null",groups = {AddGroup.class})
+	@NotNull(message = "新增时id必须不为null",groups = {AddGroup.class})
 	private Long brandId;
 	/**
 	 * 品牌名
@@ -57,7 +57,7 @@ public class BrandEntity implements Serializable {
 	 * 检索首字母
 	 */
 	@NotNull(groups = {AddGroup.class})
-	@Pattern(regexp = "/^[a-zA-Z]$/",message = "必须首字母",groups = {AddGroup.class,UpdateGroup.class})
+	@Pattern(regexp = "/^[a-zA-Z]$/",message = "检索首字母必须是一个字母",groups = {AddGroup.class,UpdateGroup.class})
 	private String firstLetter;
 	/**
 	 * 排序

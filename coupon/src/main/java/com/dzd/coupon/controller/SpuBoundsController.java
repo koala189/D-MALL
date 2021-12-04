@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import ch.qos.logback.core.joran.util.beans.BeanUtil;
+import com.dzd.common.to.SpuBoundsTo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,8 +62,9 @@ public class SpuBoundsController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("coupon:spubounds:save")
-    public R save(@RequestBody SpuBoundsEntity spuBounds){
-		spuBoundsService.save(spuBounds);
+    public R save(@RequestBody SpuBoundsTo spuBoundsTo){
+
+		spuBoundsService.saveBounds(spuBoundsTo);
 
         return R.ok();
     }

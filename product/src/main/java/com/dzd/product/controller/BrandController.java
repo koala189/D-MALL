@@ -1,12 +1,14 @@
 package com.dzd.product.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.dzd.common.valid.AddGroup;
 import com.dzd.common.valid.UpdateGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,7 @@ import com.dzd.product.service.BrandService;
 import com.dzd.common.utils.PageUtils;
 import com.dzd.common.utils.R;
 
+import javax.print.attribute.HashAttributeSet;
 import javax.validation.Valid;
 
 
@@ -54,7 +57,6 @@ public class BrandController {
     //@RequiresPermissions("product:brand:info")
     public R info(@PathVariable("brandId") Long brandId){
 		BrandEntity brand = brandService.getById(brandId);
-
         return R.ok().put("brand", brand);
     }
 
@@ -63,8 +65,19 @@ public class BrandController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:brand:save")
-    public R save(@Validated(AddGroup.class) @RequestBody BrandEntity brand){
-		brandService.save(brand);
+    public R save(@Validated(AddGroup.class) @RequestBody BrandEntity brand, BindingResult bindingResult){
+		if(bindingResult.hasErrors()){
+            HashMap<String, String> map = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(item->{
+                String msg = item.getDefaultMessage();
+                String field = item.getField();
+                map.put(field,msg);
+            });
+
+            R.error(400,"提交信息不合法").put("data",map);
+        }
+
+        brandService.save(brand);
 
         return R.ok();
     }
@@ -75,7 +88,8 @@ public class BrandController {
     @RequestMapping("/update")
     //@RequiresPermissions("product:brand:update")
     public R update(@Validated(UpdateGroup.class)@RequestBody BrandEntity brand){
-		brandService.updateById(brand);
+
+		brandService.updateDetail(brand);
 
         return R.ok();
     }

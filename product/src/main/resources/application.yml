@@ -13,6 +13,8 @@ spring:
       secret-key: XdhggtekSrO4fwAhuS3KCyBab5P0uo
       oss:
         endpoint: https://oss-cn-beijing.aliyuncs.com
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
   application:
     name: product
 mybatis-plus:
@@ -24,7 +26,7 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
 server:
-  port: 10001
+  port: 10002
 
 logging:
   level:

@@ -1,5 +1,6 @@
 package com.dzd.coupon.service.impl;
 
+import com.dzd.common.to.SpuBoundsTo;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -24,6 +25,21 @@ public class SpuBoundsServiceImpl extends ServiceImpl<SpuBoundsDao, SpuBoundsEnt
         );
 
         return new PageUtils(page);
+    }
+
+    /**
+     * 远程调用保存满减信息
+     *
+     * @param spuBoundsTo
+     */
+    @Override
+    public void saveBounds(SpuBoundsTo spuBoundsTo) {
+        SpuBoundsEntity spuBoundsEntity = new SpuBoundsEntity();
+        spuBoundsEntity.setBuyBounds(spuBoundsTo.getBuyBounds());
+        spuBoundsEntity.setGrowBounds(spuBoundsTo.getGrowBounds());
+        spuBoundsEntity.setWork(1);
+        spuBoundsEntity.setSpuId(spuBoundsTo.getSpuId());
+        baseMapper.insert(spuBoundsEntity);
     }
 
 }

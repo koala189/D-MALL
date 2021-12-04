@@ -8,21 +8,51 @@ spring:
         server-addr: 127.0.0.1:8848
     gateway:
       routes:
-        - id: test_root
-          uri: https://www.baidu.com
-          predicates:
-            - Query=url,baidu
-        - id: test_root2
-          uri: https://www.qq.com
-          predicates:
-            - Query=url,qq
+#        - id: test_root
+#          uri: https://www.baidu.com
+#          predicates:
+#            - Query=url,baidu
+#        - id: test_root2
+#          uri: https://www.qq.com
+#          predicates:
+#            - Query=url,qq
+        # /api/product/** -> /prodcut/**
+        #lb 为负载均衡
         - id: product_route
           uri: lb://product
           predicates:
             - Path=/api/product/**
           filters:
             - RewritePath=api/?(?<segment>.*),/$\{segment}
-            # /api/product/** -> /prodcut/**
+        # /api/ware/** -> /ware/**
+        - id: ware_route
+          uri: lb://ware
+          predicates:
+            - Path=/api/ware/**
+          filters:
+            - RewritePath=api/?(?<segment>.*),/$\{segment}
+        # /api/order/** -> /order/**
+        - id: order_route
+          uri: lb://order
+          predicates:
+            - Path=/api/order/**
+          filters:
+            - RewritePath=api/?(?<segment>.*),/$\{segment}
+        # /api/coupon/** -> /coupon/**
+        - id: coupom_route
+          uri: lb://coupon
+          predicates:
+            - Path=/api/coupon/**
+          filters:
+            - RewritePath=api/?(?<segment>.*),/$\{segment}
+          # /api/member/** -> /member/**
+        - id: member_route
+          uri: lb://member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=api/?(?<segment>.*),/$\{segment}
+              # /api/thirdparty/** -> /thirdparty/**
         - id: third-party_route
           uri: lb://third-party
           predicates:
@@ -30,13 +60,12 @@ spring:
           filters:
             - RewritePath=/api/thirdparty/?(?<segment>.*),/$\{segment}
         - id: admin_route
-          #lb 为负载均衡
+          #     /api/captcha.jpg  -> http://localhost:8080/renren-fast/captcha.jpg
           uri: lb://renren-fast
           predicates:
             - Path=/api/**
           filters:
             - RewritePath=/api/?(?<segment>.*),/renren-fast/$\{segment}
-            #     /api/captcha.jpg  -> http://localhost:8080/renren-fast/captcha.jpg
 
 
 

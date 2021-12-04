@@ -5,11 +5,7 @@ import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.dzd.product.entity.SkuInfoEntity;
 import com.dzd.product.service.SkuInfoService;
@@ -32,12 +28,21 @@ public class SkuInfoController {
     private SkuInfoService skuInfoService;
 
     /**
+     * 远程调用查询名字
+     */
+    @GetMapping("/getSkuName")
+    public String getSkuName(@RequestParam Long skuId) {
+        SkuInfoEntity byId = skuInfoService.getById(skuId);
+        return byId.getSkuName();
+    }
+
+    /**
      * 列表
      */
     @RequestMapping("/list")
     //@RequiresPermissions("product:skuinfo:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = skuInfoService.queryPage(params);
+        PageUtils page = skuInfoService.queryPageByCondition(params);
 
         return R.ok().put("page", page);
     }

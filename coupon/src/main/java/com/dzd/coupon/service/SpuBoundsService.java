@@ -1,6 +1,7 @@
 package com.dzd.coupon.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dzd.common.to.SpuBoundsTo;
 import com.dzd.common.utils.PageUtils;
 import com.dzd.coupon.entity.SpuBoundsEntity;
 
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface SpuBoundsService extends IService<SpuBoundsEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void saveBounds(SpuBoundsTo spuBoundsTo);
 }
 
